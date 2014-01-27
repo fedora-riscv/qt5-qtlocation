@@ -6,7 +6,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -105,11 +105,16 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %{_qt5_docdir}/qtpositioning/
 %endif
 
+%if 0%{?_qt5_examplesdir:1}
 %files examples
 %{_qt5_examplesdir}/
+%endif
 
 
 %changelog
+* Mon Jan 27 2014 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-3
+- build -examples only when supported
+
 * Sun Jan 26 2014 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-2
 - -examples subpkg
 
