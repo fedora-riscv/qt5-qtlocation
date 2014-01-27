@@ -105,6 +105,9 @@ rm -fv %{buildroot}%{_qt5_libdir}/lib*.la
 %{_qt5_docdir}/qtpositioning/
 %endif
 
+%files examples
+%{_qt5_examplesdir}/
+
 
 %changelog
 * Sun Jan 26 2014 Rex Dieter <rdieter@fedoraproject.org> 5.2.0-2
