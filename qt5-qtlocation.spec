@@ -21,7 +21,7 @@ BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(geoclue)
 # gyspy currently not available on epel7, https://bugzilla.redhat.com/1069225
-%if 0%{?redhat} != 7
+%if 0%{?rhel} != 7
 BuildRequires: pkgconfig(gypsy)
 %endif
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
