@@ -5,7 +5,7 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.3.1
+Version: 5.3.2
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -20,9 +20,15 @@ Source0: http://download.qt-project.org/official_releases/qt/5.3/%{version}/subm
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(geoclue)
+%if 0%{?rhel} < 7
 # gyspy currently not available on epel7, https://bugzilla.redhat.com/1069225
-%if 0%{?rhel} != 7
 BuildRequires: pkgconfig(gypsy)
+%define g_value_init_hack 1
+# # try to support older glib2 (like el6)
+Patch50: qtlocation-opensource-src-5.3.1-G_VALUE_INIT.patch
+%else
+# G_VALUE_INIT is new in 2.30
+BuildRequiers: pkgconfig(glib-2.0) >= 2.30
 %endif
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
@@ -60,6 +66,10 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %setup -q -n %{qt_module}-opensource-src-%{version}%{?pre:-%{pre}}
+
+%if 0%{?g_value_init_hack}
+%patch50 -p1 -b .G_VALUE_INIT
+%endif
 
 
 %build
@@ -123,6 +133,12 @@ popd
 
 
 %changelog
+* Tue Sep 16 2014 Rex Dieter <rdieter@fedoraproject.org> 5.3.2-1
+- 5.3.2
+
+* Sun Aug 17 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_22_Mass_Rebuild
+
 * Tue Jun 17 2014 Jan Grulich <jgrulich@redhat.com> - 5.3.1-1
 - 5.3.1
 
