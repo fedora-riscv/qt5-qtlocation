@@ -28,7 +28,7 @@ BuildRequires: pkgconfig(gypsy)
 Patch50: qtlocation-opensource-src-5.3.1-G_VALUE_INIT.patch
 %else
 # G_VALUE_INIT is new in 2.30
-BuildRequiers: pkgconfig(glib-2.0) >= 2.30
+BuildRequires: pkgconfig(glib-2.0) >= 2.30
 %endif
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
