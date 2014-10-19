@@ -3,19 +3,25 @@
 # define to build docs, need to undef this for bootstrapping
 %define docs 1
 
+%define pre beta
+
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.3.2
-Release: 1%{?dist}
+Version: 5.4.0
+Release: 0.1.%{pre}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url: http://qt-project.org/
 %if 0%{?pre:1}
-Source0: http://download.qt-project.org/development_releases/qt/5.3/%{version}-%{pre}/submodules/%{qt_module}-opensource-src-%{version}-%{pre}.tar.xz
+Source0: http://download.qt-project.org/development_releases/qt/5.4/%{version}-%{pre}/submodules/%{qt_module}-opensource-src-%{version}-%{pre}.tar.xz
 %else
-Source0: http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 %endif
+
+## upstreamable patches
+# try to support older glib2 (like el6)
+Patch50: qtlocation-opensource-src-5.4.0-G_VALUE_INIT.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(Qt5Qml)
@@ -23,21 +29,13 @@ BuildRequires: pkgconfig(geoclue)
 %if 0%{?rhel} < 7
 # gyspy currently not available on epel7, https://bugzilla.redhat.com/1069225
 BuildRequires: pkgconfig(gypsy)
-%define g_value_init_hack 1
-# # try to support older glib2 (like el6)
-Patch50: qtlocation-opensource-src-5.3.1-G_VALUE_INIT.patch
-%else
-# G_VALUE_INIT is new in 2.30
-BuildRequires: pkgconfig(glib-2.0) >= 2.30
 %endif
 %{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
 
 %description
-The Qt Positioning API gives developers the ability to determine a position
-by using a variety of possible sources, including satellite, or wifi, or
- text file, and so on. That information can then be used to for example
-determine a position on a map. In addition satellite information can be
-retrieved and area based monitoring can be performed.
+The Qt Location and Qt Positioning APIs gives developers the ability to
+determine a position by using a variety of possible sources, including
+satellite, or wifi, or text file, and so on.
 
 %package devel
 Summary: Development files for %{name}
@@ -67,9 +65,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %prep
 %setup -q -n %{qt_module}-opensource-src-%{version}%{?pre:-%{pre}}
 
-%if 0%{?g_value_init_hack}
+## G_VALUE_INIT is new in glib-2.30+ only
 %patch50 -p1 -b .G_VALUE_INIT
-%endif
 
 
 %build
@@ -106,22 +103,38 @@ popd
 %postun -p /sbin/ldconfig
 
 %files
-%doc LGPL_EXCEPTION.txt LICENSE.GPL LICENSE.LGPL
+%doc LGPL_EXCEPTION.txt LICENSE.GPL* LICENSE.LGPL*
+%{_qt5_libdir}/libQt5Location.so.5*
+%{_qt5_archdatadir}/qml/QtLocation/
+%{_qt5_plugindir}/geoservices/
 %{_qt5_libdir}/libQt5Positioning.so.5*
-%{_qt5_plugindir}/position/
 %{_qt5_archdatadir}/qml/QtPositioning/
+%{_qt5_plugindir}/position/
+%dir %{_qt5_libdir}/cmake/
+%dir %{_qt5_libdir}/cmake/Qt5Location
+%dir %{_qt5_libdir}/cmake/Qt5Positioning
+%{_qt5_libdir}/cmake/Qt5Location/Qt5Location_QGeoServiceProviderFactory*.cmake
+%{_qt5_libdir}/cmake/Qt5Positioning/Qt5Positioning_QGeoPositionInfoSourceFactory*.cmake
 
 %files devel
+%{_qt5_headerdir}/QtLocation/
+%{_qt5_libdir}/libQt5Location.so
+%{_qt5_libdir}/libQt5Location.prl
+%{_qt5_libdir}/pkgconfig/Qt5Location.pc
+%{_qt5_archdatadir}/mkspecs/modules/qt_lib_location*.pri
+%{_qt5_libdir}/cmake/Qt5Location/Qt5LocationConfig*.cmake
 %{_qt5_headerdir}/QtPositioning/
 %{_qt5_libdir}/libQt5Positioning.so
 %{_qt5_libdir}/libQt5Positioning.prl
-%{_qt5_libdir}/cmake/Qt5Positioning/
+%{_qt5_libdir}/cmake/Qt5Positioning/Qt5PositioningConfig*.cmake
 %{_qt5_libdir}/pkgconfig/Qt5Positioning.pc
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
 
 %if 0%{?docs}
 %files doc
 %doc LICENSE.FDL
+%{_qt5_docdir}/qtlocation.qch
+%{_qt5_docdir}/qtlocation/
 %{_qt5_docdir}/qtpositioning.qch
 %{_qt5_docdir}/qtpositioning/
 %endif
@@ -133,6 +146,9 @@ popd
 
 
 %changelog
+* Sun Oct 19 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-0.1.beta
+- 5.4.0-beta
+
 * Tue Sep 16 2014 Rex Dieter <rdieter@fedoraproject.org> 5.3.2-1
 - 5.3.2
 
