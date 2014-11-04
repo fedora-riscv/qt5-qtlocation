@@ -8,7 +8,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.4.0
-Release: 0.1.%{pre}%{?dist}
+Release: 0.2.%{pre}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -70,20 +70,23 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-%{_qt5_qmake}
+mkdir %{_target_platform}
+pushd %{_target_platform}
+%{qmake_qt5} ..
 
 make %{?_smp_mflags}
 
 %if 0%{?docs}
 make %{?_smp_mflags} docs
 %endif
+popd
 
 
 %install
-make install INSTALL_ROOT=%{buildroot}
+make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
 
 %if 0%{?docs}
-make install_docs INSTALL_ROOT=%{buildroot}
+make install_docs INSTALL_ROOT=%{buildroot} -C %{_target_platform}
 %endif
 
 ## .prl/.la file love
@@ -146,6 +149,9 @@ popd
 
 
 %changelog
+* Mon Nov 03 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-0.2.beta
+- out-of-tree build, use %%qmake_qt5
+
 * Sun Oct 19 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-0.1.beta
 - 5.4.0-beta
 
