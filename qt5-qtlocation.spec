@@ -3,12 +3,12 @@
 # define to build docs, need to undef this for bootstrapping
 %define docs 1
 
-%define pre beta
+%define pre rc
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.4.0
-Release: 0.2.%{pre}%{?dist}
+Release: 0.3.%{pre}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -149,6 +149,9 @@ popd
 
 
 %changelog
+* Fri Nov 28 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-0.3.rc
+- 5.4.0-rc
+
 * Mon Nov 03 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-0.2.beta
 - out-of-tree build, use %%qmake_qt5
 
