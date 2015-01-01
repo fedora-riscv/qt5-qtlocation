@@ -6,7 +6,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -22,7 +22,7 @@ Source0: http://download.qt-project.org/official_releases/qt/5.4/%{version}/subm
 Patch50: qtlocation-opensource-src-5.4.0-G_VALUE_INIT.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
-BuildRequires: pkgconfig(Qt5Qml)
+BuildRequires: pkgconfig(Qt5Qml) >= 5.4.0
 BuildRequires: pkgconfig(geoclue)
 %if 0%{?rhel} < 7
 # gyspy currently not available on epel7, https://bugzilla.redhat.com/1069225
@@ -147,6 +147,9 @@ popd
 
 
 %changelog
+* Wed Dec 31 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-2
+- BR: pkgconfig(Qt5Qml) > 5.4.0 (#1177986)
+
 * Wed Dec 10 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-1
 - 5.4.0 (final)
 
