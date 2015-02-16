@@ -6,7 +6,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -147,6 +147,9 @@ popd
 
 
 %changelog
+* Mon Feb 16 2015 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-3
+- rebuild (gcc5)
+
 * Wed Dec 31 2014 Rex Dieter <rdieter@fedoraproject.org> 5.4.0-2
 - BR: pkgconfig(Qt5Qml) > 5.4.0 (#1177986)
 
