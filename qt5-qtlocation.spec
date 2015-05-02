@@ -6,7 +6,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.4.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -147,6 +147,9 @@ popd
 
 
 %changelog
+* Sat May 02 2015 Kalev Lember <kalevlember@gmail.com> - 5.4.1-3
+- Rebuilt for GCC 5 C++11 ABI change
+
 * Fri Feb 27 2015 Rex Dieter <rdieter@fedoraproject.org> - 5.4.1-2
 - rebuild (gcc5)
 
