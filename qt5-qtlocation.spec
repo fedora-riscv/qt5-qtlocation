@@ -3,17 +3,17 @@
 # define to build docs, need to undef this for bootstrapping
 %define docs 0
 
-%define prerelease rc
+#define prerelease rc
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.5.0
-Release: 0.2.rc%{?dist}
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/development_releases/qt/5.5/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
+Source0: http://download.qt.io/official_releases/qt/5.5/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
 
 ## upstreamable patches
 # try to support older glib2 (like el6)
