@@ -1,14 +1,14 @@
 
 %global qt_module qtlocation
 # define to build docs, need to undef this for bootstrapping
-%define docs 0
+%define docs 1
 
 #define prerelease rc
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -27,7 +27,9 @@ BuildRequires: pkgconfig(geoclue)
 # gyspy currently not available on epel7, https://bugzilla.redhat.com/1069225
 BuildRequires: pkgconfig(gypsy)
 %endif
-%{?_qt5_version:Requires: qt5-qtbase%{?_isa} >= %{_qt5_version}}
+
+# QtPositioning core-private
+%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 %description
 The Qt Location and Qt Positioning APIs gives developers the ability to
@@ -64,6 +66,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 ## G_VALUE_INIT is new in glib-2.30+ only
 %patch50 -p1 -b .G_VALUE_INIT
 
+
 %build
 mkdir %{_target_platform}
 pushd %{_target_platform}
@@ -75,6 +78,7 @@ make %{?_smp_mflags}
 make %{?_smp_mflags} docs
 %endif
 popd
+
 
 %install
 make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
@@ -94,6 +98,7 @@ for prl_file in libQt5*.prl ; do
   fi
 done
 popd
+
 
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
@@ -142,6 +147,12 @@ popd
 
 
 %changelog
+* Thu Jul 16 2015 Rex Dieter <rdieter@fedoraproject.org> 5.5.0-2
+- tighten qtbase dep (#1233829), .spec cosmetics, (re)enable docs
+
+* Wed Jul 1 2015 Helio Chissini de Castro <helio@kde.org> 5.5.0-1
+- New final upstream release Qt 5.5.0
+
 * Wed Jun 24 2015 Helio Chissini de Castro <helio@kde.org> - 5.5.0-0.2.rc
 - Update for official RC1 released packages
 
