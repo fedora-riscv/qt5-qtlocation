@@ -47,6 +47,7 @@ Requires: qt5-qtbase-devel%{?_isa}
 %package doc
 Summary: API documentation for %{name}
 Requires: %{name} = %{version}-%{release}
+BuildRequires: qt5-qdoc
 BuildRequires: qt5-qhelpgenerator
 BuildArch: noarch
 %description doc
@@ -148,6 +149,9 @@ popd
 %changelog
 * Thu Dec 10 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.2
 - Official beta release
+
+* Sun Dec 06 2015 Rex Dieter <rdieter@fedoraproject.org> 5.6.0-0.2
+- (re)add bootstrap macro support
 
 * Tue Nov 03 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.1
 - Start to implement 5.6.0 beta
