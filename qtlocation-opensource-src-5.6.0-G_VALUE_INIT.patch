@@ -1,0 +1,13 @@
+--- qtlocation-opensource-src-5.6.0-beta1/src/plugins/position/geoclue/qgeopositioninfosource_geocluemaster.cpp	2015-11-03 12:20:38.000000000 -0200
++++ qtlocation-opensource-src-5.6.0-beta1/src/plugins/position/geoclue/qgeopositioninfosource_geocluemaster.cpp.new	2015-11-10 16:04:55.661725365 -0200
+@@ -57,6 +57,10 @@
+ #define MINIMUM_UPDATE_INTERVAL 1000
+ #define UPDATE_TIMEOUT_COLD_START 120000
+ 
++#ifndef G_VALUE_INIT
++#define G_VALUE_INIT  { 0 }
++#endif
++
+ QT_BEGIN_NAMESPACE
+ 
+ namespace

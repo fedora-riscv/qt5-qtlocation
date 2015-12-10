@@ -1,36 +1,27 @@
 
 %global qt_module qtlocation
 
-# define to build docs, need to undef this for bootstrapping
-# where qt5-qttools builds are not yet available
-# only primary archs (for now), allow secondary to bootstrap
-#global bootstrap 1
-
-%if ! 0%{?bootstrap}
-%ifarch %{arm} %{ix86} x86_64
 %define docs 1
-%endif
-%endif
 
-## define prerelease rc1
+%define prerelease beta
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.5.1
-Release: 2%{?dist}
+Version: 5.6.0
+Release: 0.2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/official_releases/qt/5.5/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
+Source0: http://download.qt.io/official_releases/qt/5.5/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.gz
 
 ## upstreamable patches
 # try to support older glib2 (like el6)
-Patch50: qtlocation-opensource-src-5.4.0-G_VALUE_INIT.patch
+Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
-BuildRequires: qt5-qtdeclarative-devel >= %{version}
-BuildRequires: pkgconfig(Qt5Qml) >= 5.4.0
+BuildRequires: pkgconfig(Qt5Quick) >= %{version}
+BuildRequires: qt5-qdoc
 BuildRequires: pkgconfig(geoclue)
 %if 0%{?rhel} < 7
 # gyspy currently not available on epel7, https://bugzilla.redhat.com/1069225
@@ -155,6 +146,12 @@ popd
 
 
 %changelog
+* Thu Dec 10 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.2
+- Official beta release
+
+* Tue Nov 03 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.1
+- Start to implement 5.6.0 beta
+
 * Thu Oct 15 2015 Helio Chissini de Castro <helio@kde.org> - 5.5.1-2
 - Update to final release 5.5.1
 
