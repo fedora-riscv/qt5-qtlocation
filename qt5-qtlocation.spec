@@ -17,7 +17,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.6.0
-Release: 0.4%{?dist}
+Release: 0.5%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -150,6 +150,9 @@ popd
 
 
 %changelog
+* Mon Dec 21 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.5
+- Update to final beta release
+
 * Fri Dec 11 2015 Rex Dieter <rdieter@fedoraproject.org> - 5.6.0-0.4
 - (re) add bootstrap macro support
 - drop geoclue(1) dep (unused at build time anyway (#1286886)
