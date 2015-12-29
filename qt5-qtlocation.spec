@@ -17,17 +17,22 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.6.0
-Release: 0.5%{?dist}
+Release: 0.6.%{prerelease}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/official_releases/qt/5.5/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.gz
+%if 0%{?prerelease:1}
+Source0: http://download.qt.io/development_releases/qt/5.6/%{version}-%{prerelease}/submodules/%{qt_module}-opensource-src-%{version}-%{prerelease}.tar.gz
+%else
+Source0: http://download.qt.io/official_releases/qt/5.6/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.gz
+%endif
 
 ## upstreamable patches
 # try to support older glib2 (like el6)
 Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
+BuildRequires: cmake
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(Qt5Quick) >= %{version}
 
@@ -107,7 +112,7 @@ popd
 %postun -p /sbin/ldconfig
 
 %files
-%doc LGPL_EXCEPTION.txt LICENSE.GPL* LICENSE.LGPL*
+%license LGPL_EXCEPTION.txt LICENSE.GPL* LICENSE.LGPL*
 %{_qt5_libdir}/libQt5Location.so.5*
 %{_qt5_archdatadir}/qml/QtLocation/
 %{_qt5_plugindir}/geoservices/
@@ -136,7 +141,7 @@ popd
 
 %if 0%{?docs}
 %files doc
-%doc LICENSE.FDL
+%license LICENSE.FDL
 %{_qt5_docdir}/qtlocation.qch
 %{_qt5_docdir}/qtlocation/
 %{_qt5_docdir}/qtpositioning.qch
@@ -150,6 +155,9 @@ popd
 
 
 %changelog
+* Mon Dec 28 2015 Rex Dieter <rdieter@fedoraproject.org> 5.6.0-0.6.beta
+- update source URL, use %%license, BR: cmake
+
 * Mon Dec 21 2015 Helio Chissini de Castro <helio@kde.org> - 5.6.0-0.5
 - Update to final beta release
 
