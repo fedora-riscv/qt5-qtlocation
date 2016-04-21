@@ -17,7 +17,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.6.0
-Release: 3%{?prerelease:.%{prerelease}}%{?dist}
+Release: 4%{?prerelease:.%{prerelease}}%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -33,6 +33,7 @@ BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(Qt5Quick) >= %{version}
 
 # QtPositioning core-private
+BuildRequires:  qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 %description
@@ -151,6 +152,9 @@ popd
 
 
 %changelog
+* Thu Apr 21 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.6.0-4
+- BR: qt5-qtbase-private-devel
+
 * Sun Mar 20 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.6.0-3
 - rebuild
 
