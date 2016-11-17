@@ -12,23 +12,20 @@
 %endif
 %endif
 
-#define prerelease
-
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.6.1
-Release: 2%{?prerelease:.%{prerelease}}%{?dist}
+Version: 5.6.2
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/snapshots/qt/5.6/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
+Source0: http://download.qt.io/official_releases/qt/5.6/%{version}%{?prerelease:-%{prerelease}}/submodules/%{qt_module}-opensource-src-%{version}%{?prerelease:-%{prerelease}}.tar.xz
 
 ## upstreamable patches
 # try to support older glib2 (like el6)
 Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
-BuildRequires: cmake
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: qt5-qtdeclarative-devel >= %{version}
 
@@ -152,6 +149,9 @@ popd
 
 
 %changelog
+* Wed Nov 16 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.6.2-1
+- 5.6.2
+
 * Wed Jun 15 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.6.1-2
 - drop pkgconfig-style Qt5 deps
 
