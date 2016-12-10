@@ -6,7 +6,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -17,7 +17,6 @@ Source0: http://download.qt.io/official_releases/qt/5.7/%{version}/submodules/%{
 # try to support older glib2 (like el6)
 Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
-BuildRequires: cmake
 BuildRequires: qt5-qtbase-devel >= %{version}
 BuildRequires: pkgconfig(Qt5Quick) >= %{version}
 
@@ -141,6 +140,10 @@ popd
 
 
 %changelog
+* Sat Dec 10 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.7.1-2
+- drop BR: cmake (handled by qt5-rpm-macros now)
+- 5.7.1 dec5 snapshot
+
 * Wed Nov 09 2016 Helio Chissini de Castro <helio@kde.org> - 5.7.1-1
 - New upstream version
 
