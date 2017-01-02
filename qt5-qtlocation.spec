@@ -6,15 +6,15 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.7.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
 Source0: http://download.qt.io/official_releases/qt/5.7/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
-# filter qml provides
-%global __provides_exclude_from ^%{_qt5_archdatadir}/qml/.*\\.so$
+# filter plugin/qml provides
+%global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
 
 ## upstreamable patches
 # try to support older glib2 (like el6)
@@ -143,6 +143,9 @@ popd
 
 
 %changelog
+* Mon Jan 02 2017 Rex Dieter <rdieter@math.unl.edu> - 5.7.1-4
+- filter plugins too
+
 * Mon Jan 02 2017 Rex Dieter <rdieter@math.unl.edu> - 5.7.1-3
 - filter qml provides, BR: qt5-qtdeclarative explicitly
 
