@@ -6,19 +6,22 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.7.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
 Source0: http://download.qt.io/official_releases/qt/5.7/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
+# filter qml provides
+%global __provides_exclude_from ^%{_qt5_archdatadir}/qml/.*\\.so$
+
 ## upstreamable patches
 # try to support older glib2 (like el6)
 Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
 BuildRequires: qt5-qtbase-devel >= %{version}
-BuildRequires: pkgconfig(Qt5Quick) >= %{version}
+BuildRequires: qt5-qtdeclarative-devel >= %{version}
 
 # QtPositioning core-private
 BuildRequires:  qt5-qtbase-private-devel
@@ -140,6 +143,9 @@ popd
 
 
 %changelog
+* Mon Jan 02 2017 Rex Dieter <rdieter@math.unl.edu> - 5.7.1-3
+- filter qml provides, BR: qt5-qtdeclarative explicitly
+
 * Sat Dec 10 2016 Rex Dieter <rdieter@fedoraproject.org> - 5.7.1-2
 - drop BR: cmake (handled by qt5-rpm-macros now)
 - 5.7.1 dec5 snapshot
