@@ -1,17 +1,19 @@
-
 %global qt_module qtlocation
 
-%define docs 1
+# To build without qttools doctools package, just undefine docs
+%ifarch %{arm} %{ix86} x86_64
+%global docs 1
+%endif
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.7.1
-Release: 5%{?dist}
+Version: 5.8.0
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/official_releases/qt/5.7/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -43,8 +45,8 @@ Requires: qt5-qtbase-devel%{?_isa}
 %package doc
 Summary: API documentation for %{name}
 Requires: %{name} = %{version}-%{release}
-BuildRequires: qt5-qdoc
-BuildRequires: qt5-qhelpgenerator
+BuildRequires: qt5-doctools
+BuildRequires: qt5-qtbase-doc
 BuildArch: noarch
 %description doc
 %{summary}.
@@ -105,27 +107,26 @@ popd
 %{_qt5_archdatadir}/qml/QtLocation/
 %{_qt5_plugindir}/geoservices/
 %{_qt5_libdir}/libQt5Positioning.so.5*
-%{_qt5_archdatadir}/qml/QtPositioning/
+%dir %{_qt5_archdatadir}/qml/QtPositioning
+%{_qt5_archdatadir}/qml/QtPositioning/*
 %{_qt5_plugindir}/position/
-%dir %{_qt5_libdir}/cmake/
-%dir %{_qt5_libdir}/cmake/Qt5Location
-%dir %{_qt5_libdir}/cmake/Qt5Positioning
-%{_qt5_libdir}/cmake/Qt5Location/Qt5Location_QGeoServiceProviderFactory*.cmake
-%{_qt5_libdir}/cmake/Qt5Positioning/Qt5Positioning_QGeoPositionInfoSourceFactory*.cmake
 
 %files devel
 %{_qt5_headerdir}/QtLocation/
 %{_qt5_libdir}/libQt5Location.so
 %{_qt5_libdir}/libQt5Location.prl
-%{_qt5_libdir}/pkgconfig/Qt5Location.pc
-%{_qt5_archdatadir}/mkspecs/modules/qt_lib_location*.pri
-%{_qt5_libdir}/cmake/Qt5Location/Qt5LocationConfig*.cmake
 %{_qt5_headerdir}/QtPositioning/
 %{_qt5_libdir}/libQt5Positioning.so
 %{_qt5_libdir}/libQt5Positioning.prl
-%{_qt5_libdir}/cmake/Qt5Positioning/Qt5PositioningConfig*.cmake
+%{_qt5_libdir}/pkgconfig/Qt5Location.pc
+%dir %{_qt5_libdir}/cmake/Qt5Location
+%{_qt5_libdir}/cmake/Qt5Location/Qt5Location*.cmake
+%{_qt5_archdatadir}/mkspecs/modules/qt_lib_location*.pri
 %{_qt5_libdir}/pkgconfig/Qt5Positioning.pc
+%dir %{_qt5_libdir}/cmake/Qt5Positioning
+%{_qt5_libdir}/cmake/Qt5Positioning/Qt5Positioning*.cmake
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
+
 
 %if 0%{?docs}
 %files doc
@@ -134,17 +135,15 @@ popd
 %{_qt5_docdir}/qtlocation/
 %{_qt5_docdir}/qtpositioning.qch
 %{_qt5_docdir}/qtpositioning/
-%endif
 
-%if 0%{?_qt5_examplesdir:1}
 %files examples
 %{_qt5_examplesdir}/
 %endif
 
 
 %changelog
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+* Mon Jan 30 2017 Helio Chissini de Castro <helio@kde.org> - 5.8.0-1
+- New upstream version
 
 * Mon Jan 02 2017 Rex Dieter <rdieter@math.unl.edu> - 5.7.1-4
 - filter plugins too
