@@ -135,10 +135,10 @@ popd
 %{_qt5_docdir}/qtlocation/
 %{_qt5_docdir}/qtpositioning.qch
 %{_qt5_docdir}/qtpositioning/
+%endif
 
 %files examples
 %{_qt5_examplesdir}/
-%endif
 
 
 %changelog
