@@ -1,14 +1,12 @@
 %global qt_module qtlocation
 
 # To build without qttools doctools package, just undefine docs
-%ifarch %{arm} %{ix86} x86_64
 %global docs 1
-%endif
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.8.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -142,6 +140,9 @@ popd
 
 
 %changelog
+* Mon Apr 03 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.8.0-2
+- build docs on all archs
+
 * Mon Jan 30 2017 Helio Chissini de Castro <helio@kde.org> - 5.8.0-1
 - New upstream version
 
