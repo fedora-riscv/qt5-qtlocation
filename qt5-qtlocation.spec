@@ -1,17 +1,14 @@
 %global qt_module qtlocation
 
-# To build without qttools doctools package, just undefine docs
-%global docs 1
-
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.8.0
-Release: 2%{?dist}
+Version: 5.9.0
+Release: 0.beta.3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: https://download.qt.io/development_releases/qt/5.9/%{version}-beta3/submodules/%{qt_module}-opensource-src-%{version}-beta3.tar.xz
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -39,17 +36,6 @@ Requires: qt5-qtbase-devel%{?_isa}
 %description devel
 %{summary}.
 
-%if 0%{?docs}
-%package doc
-Summary: API documentation for %{name}
-Requires: %{name} = %{version}-%{release}
-BuildRequires: qt5-doctools
-BuildRequires: qt5-qtbase-doc
-BuildArch: noarch
-%description doc
-%{summary}.
-%endif
-
 %package examples
 Summary: Programming examples for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -58,7 +44,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}
+%setup -q -n %{qt_module}-opensource-src-%{version}-beta3
 ## G_VALUE_INIT is new in glib-2.30+ only
 %patch50 -p1 -b .G_VALUE_INIT
 
@@ -70,18 +56,8 @@ pushd %{_target_platform}
 
 make %{?_smp_mflags}
 
-%if 0%{?docs}
-make %{?_smp_mflags} docs
-%endif
-popd
-
-
 %install
 make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
-
-%if 0%{?docs}
-make install_docs INSTALL_ROOT=%{buildroot} -C %{_target_platform}
-%endif
 
 ## .prl/.la file love
 # nuke .prl reference(s) to %%buildroot, excessive (.la-like) libs
@@ -126,20 +102,14 @@ popd
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
 
 
-%if 0%{?docs}
-%files doc
-%license LICENSE.FDL
-%{_qt5_docdir}/qtlocation.qch
-%{_qt5_docdir}/qtlocation/
-%{_qt5_docdir}/qtpositioning.qch
-%{_qt5_docdir}/qtpositioning/
-%endif
-
 %files examples
 %{_qt5_examplesdir}/
 
 
 %changelog
+* Tue May 09 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-0.beta.3
+- Upstream beta 3
+
 * Mon Apr 03 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.8.0-2
 - build docs on all archs
 
