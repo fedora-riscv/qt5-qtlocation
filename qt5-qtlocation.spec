@@ -21,6 +21,8 @@ BuildRequires: pkgconfig(Qt5Core) >= 5.9.0
 BuildRequires: pkgconfig(Qt5Qml) >= 5.9.0
 BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(icu-i18n)
+BuildRequires: pkgconfig(libssl)
+BuildRequires: pkgconfig(libcrypto)
 # QtPositioning core-private
 BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
