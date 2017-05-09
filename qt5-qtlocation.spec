@@ -17,8 +17,8 @@ Source0: https://download.qt.io/development_releases/qt/5.9/%{version}-beta3/sub
 # try to support older glib2 (like el6)
 Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
-BuildRequires: pkgconfig(Qt5) >= %{version}
-BuildRequires: pkgconfig(Qt5Qml) >= %{version}
+BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: pkgconfig(Qt5Qml)
 BuildRequires: pkgconfig(zlib)
 # QtPositioning core-private
 BuildRequires: qt5-qtbase-private-devel
