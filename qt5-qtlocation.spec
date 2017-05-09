@@ -18,7 +18,7 @@ Source0: https://download.qt.io/development_releases/qt/5.9/%{version}-beta3/sub
 Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
 BuildRequires: pkgconfig(Qt5Core) >= 5.9.0
-BuildRequires: pkgconfig(Qt5Qml)>= 5.9.0
+BuildRequires: pkgconfig(Qt5Qml) >= 5.9.0
 BuildRequires: pkgconfig(zlib)
 # QtPositioning core-private
 BuildRequires: qt5-qtbase-private-devel
