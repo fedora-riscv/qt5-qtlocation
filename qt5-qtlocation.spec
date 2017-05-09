@@ -20,6 +20,7 @@ Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 BuildRequires: pkgconfig(Qt5Core) >= 5.9.0
 BuildRequires: pkgconfig(Qt5Qml) >= 5.9.0
 BuildRequires: pkgconfig(zlib)
+BuildRequires: pkgconfig(icu-i18n)
 # QtPositioning core-private
 BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
