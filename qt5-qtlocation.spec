@@ -3,12 +3,12 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.9.0
-Release: 0.beta.3%{?dist}.1
+Release: 0.1.rc%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: https://download.qt.io/development_releases/qt/5.9/%{version}-beta3/submodules/%{qt_module}-opensource-src-%{version}-beta3.tar.xz
+Source0: https://download.qt.io/development_releases/qt/5.9/%{version}-rc/submodules/%{qt_module}-opensource-src-%{version}-rc.tar.xz
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -47,7 +47,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}-beta3
+%setup -q -n %{qt_module}-opensource-src-%{version}-rc
 ## G_VALUE_INIT is new in glib-2.30+ only
 %patch50 -p1 -b .G_VALUE_INIT
 
@@ -110,6 +110,9 @@ popd
 
 
 %changelog
+* Fri May 26 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-0.1.rc
+- Upstream Release Candidate retagged
+
 * Mon May 15 2017 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.9.0-0.beta.3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_27_Mass_Rebuild
 
