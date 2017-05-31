@@ -3,12 +3,12 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.9.0
-Release: 0.1.rc%{?dist}
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: https://download.qt.io/development_releases/qt/5.9/%{version}-rc/submodules/%{qt_module}-opensource-src-%{version}-rc.tar.xz
+Source0: https://download.qt.io/official_releases/qt/5.9/5.9.0/submodules/qtlocation-opensource-src-5.9.0.tar.xz
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -47,7 +47,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}-rc
+%setup -q -n %{qt_module}-opensource-src-%{version}
 ## G_VALUE_INIT is new in glib-2.30+ only
 %patch50 -p1 -b .G_VALUE_INIT
 
@@ -110,6 +110,9 @@ popd
 
 
 %changelog
+* Wed May 31 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-1
+- Upstream official release
+
 * Fri May 26 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-0.1.rc
 - Upstream Release Candidate retagged
 
