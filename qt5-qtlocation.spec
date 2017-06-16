@@ -3,7 +3,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -17,15 +17,16 @@ Source0: https://download.qt.io/official_releases/qt/5.9/5.9.0/submodules/qtloca
 # try to support older glib2 (like el6)
 Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
-BuildRequires: pkgconfig(Qt5Core) >= 5.9.0
-BuildRequires: pkgconfig(Qt5Qml) >= 5.9.0
+BuildRequires: qt5-qtbase-devel >= 5.9.0
+# QtPositioning core-private
+BuildRequires: qt5-qtbase-private-devel
+%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
+BuildRequires: qt5-qtdeclarative-devel >= 5.9.0
+
 BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(icu-i18n)
 BuildRequires: pkgconfig(libssl)
 BuildRequires: pkgconfig(libcrypto)
-# QtPositioning core-private
-BuildRequires: qt5-qtbase-private-devel
-%{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 
 %description
 The Qt Location and Qt Positioning APIs gives developers the ability to
@@ -53,14 +54,13 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{qmake_qt5} ..
+# no shadow builds until fixed: https://bugreports.qt.io/browse/QTBUG-37417
+%{qmake_qt5}
 
 make %{?_smp_mflags}
 
 %install
-make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
+make install INSTALL_ROOT=%{buildroot}
 
 ## .prl/.la file love
 # nuke .prl reference(s) to %%buildroot, excessive (.la-like) libs
@@ -110,6 +110,10 @@ popd
 
 
 %changelog
+* Fri Jun 16 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.9.0-2
+- drop shadow/out-of-tree builds (#1456211,QTBUG-37417)
+- directly reference other qt5-related build deps
+
 * Wed May 31 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-1
 - Upstream official release
 
