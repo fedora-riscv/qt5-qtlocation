@@ -2,13 +2,13 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.9.0
-Release: 2%{?dist}
+Version: 5.9.1
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: https://download.qt.io/official_releases/qt/5.9/5.9.0/submodules/qtlocation-opensource-src-5.9.0.tar.xz
+Source0: https://download.qt.io/official_releases/qt/5.9/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -110,6 +110,9 @@ popd
 
 
 %changelog
+* Wed Jul 19 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.9.1-1
+- 5.9.1
+
 * Fri Jun 16 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.9.0-2
 - drop shadow/out-of-tree builds (#1456211,QTBUG-37417)
 - directly reference other qt5-related build deps
