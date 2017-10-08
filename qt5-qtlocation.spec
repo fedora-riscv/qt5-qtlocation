@@ -58,7 +58,8 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 # no shadow builds until fixed: https://bugreports.qt.io/browse/QTBUG-37417
 %{qmake_qt5}
 
-make %{?_smp_mflags}
+# Use -j4 to fix build order issue with highly-parallelized builds, like -j48 on i686)
+make -j4
 
 %install
 make install INSTALL_ROOT=%{buildroot}
