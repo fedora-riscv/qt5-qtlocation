@@ -27,6 +27,7 @@ BuildRequires: pkgconfig(zlib)
 BuildRequires: pkgconfig(icu-i18n)
 BuildRequires: pkgconfig(libssl)
 BuildRequires: pkgconfig(libcrypto)
+BuildRequires: pkgconfig(clipper)
 
 %description
 The Qt Location and Qt Positioning APIs gives developers the ability to
