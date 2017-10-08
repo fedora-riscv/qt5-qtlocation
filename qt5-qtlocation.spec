@@ -1,17 +1,14 @@
-
 %global qt_module qtlocation
-
-%define docs 1
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.7.1
-Release: 6%{?dist}
+Version: 5.9.1
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: http://download.qt.io/official_releases/qt/5.7/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: https://download.qt.io/official_releases/qt/5.9/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -20,12 +17,16 @@ Source0: http://download.qt.io/official_releases/qt/5.7/%{version}/submodules/%{
 # try to support older glib2 (like el6)
 Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
-BuildRequires: qt5-qtbase-devel >= %{version}
-BuildRequires: qt5-qtdeclarative-devel >= %{version}
-
+BuildRequires: qt5-qtbase-devel >= 5.9.0
 # QtPositioning core-private
-BuildRequires:  qt5-qtbase-private-devel
+BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
+BuildRequires: qt5-qtdeclarative-devel >= 5.9.0
+
+BuildRequires: pkgconfig(zlib)
+BuildRequires: pkgconfig(icu-i18n)
+BuildRequires: pkgconfig(libssl)
+BuildRequires: pkgconfig(libcrypto)
 
 %description
 The Qt Location and Qt Positioning APIs gives developers the ability to
@@ -38,17 +39,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: qt5-qtbase-devel%{?_isa}
 %description devel
 %{summary}.
-
-%if 0%{?docs}
-%package doc
-Summary: API documentation for %{name}
-Requires: %{name} = %{version}-%{release}
-BuildRequires: qt5-qdoc
-BuildRequires: qt5-qhelpgenerator
-BuildArch: noarch
-%description doc
-%{summary}.
-%endif
 
 %package examples
 Summary: Programming examples for %{name}
@@ -64,24 +54,13 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %build
-mkdir %{_target_platform}
-pushd %{_target_platform}
-%{qmake_qt5} ..
+# no shadow builds until fixed: https://bugreports.qt.io/browse/QTBUG-37417
+%{qmake_qt5}
 
 make %{?_smp_mflags}
 
-%if 0%{?docs}
-make %{?_smp_mflags} docs
-%endif
-popd
-
-
 %install
-make install INSTALL_ROOT=%{buildroot} -C %{_target_platform}
-
-%if 0%{?docs}
-make install_docs INSTALL_ROOT=%{buildroot} -C %{_target_platform}
-%endif
+make install INSTALL_ROOT=%{buildroot}
 
 ## .prl/.la file love
 # nuke .prl reference(s) to %%buildroot, excessive (.la-like) libs
@@ -105,49 +84,62 @@ popd
 %{_qt5_archdatadir}/qml/QtLocation/
 %{_qt5_plugindir}/geoservices/
 %{_qt5_libdir}/libQt5Positioning.so.5*
-%{_qt5_archdatadir}/qml/QtPositioning/
+%dir %{_qt5_archdatadir}/qml/QtPositioning
+%{_qt5_archdatadir}/qml/QtPositioning/*
 %{_qt5_plugindir}/position/
-%dir %{_qt5_libdir}/cmake/
-%dir %{_qt5_libdir}/cmake/Qt5Location
-%dir %{_qt5_libdir}/cmake/Qt5Positioning
-%{_qt5_libdir}/cmake/Qt5Location/Qt5Location_QGeoServiceProviderFactory*.cmake
-%{_qt5_libdir}/cmake/Qt5Positioning/Qt5Positioning_QGeoPositionInfoSourceFactory*.cmake
 
 %files devel
 %{_qt5_headerdir}/QtLocation/
 %{_qt5_libdir}/libQt5Location.so
 %{_qt5_libdir}/libQt5Location.prl
-%{_qt5_libdir}/pkgconfig/Qt5Location.pc
-%{_qt5_archdatadir}/mkspecs/modules/qt_lib_location*.pri
-%{_qt5_libdir}/cmake/Qt5Location/Qt5LocationConfig*.cmake
 %{_qt5_headerdir}/QtPositioning/
 %{_qt5_libdir}/libQt5Positioning.so
 %{_qt5_libdir}/libQt5Positioning.prl
-%{_qt5_libdir}/cmake/Qt5Positioning/Qt5PositioningConfig*.cmake
+%{_qt5_libdir}/pkgconfig/Qt5Location.pc
+%dir %{_qt5_libdir}/cmake/Qt5Location
+%{_qt5_libdir}/cmake/Qt5Location/Qt5Location*.cmake
+%{_qt5_archdatadir}/mkspecs/modules/qt_lib_location*.pri
 %{_qt5_libdir}/pkgconfig/Qt5Positioning.pc
+%dir %{_qt5_libdir}/cmake/Qt5Positioning
+%{_qt5_libdir}/cmake/Qt5Positioning/Qt5Positioning*.cmake
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
 
-%if 0%{?docs}
-%files doc
-%license LICENSE.FDL
-%{_qt5_docdir}/qtlocation.qch
-%{_qt5_docdir}/qtlocation/
-%{_qt5_docdir}/qtpositioning.qch
-%{_qt5_docdir}/qtpositioning/
-%endif
 
-%if 0%{?_qt5_examplesdir:1}
 %files examples
 %{_qt5_examplesdir}/
-%endif
 
 
 %changelog
-* Mon May 15 2017 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.7.1-6
+* Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Wed Jul 19 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.9.1-1
+- 5.9.1
+
+* Fri Jun 16 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.9.0-2
+- drop shadow/out-of-tree builds (#1456211,QTBUG-37417)
+- directly reference other qt5-related build deps
+
+* Wed May 31 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-1
+- Upstream official release
+
+* Fri May 26 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-0.1.rc
+- Upstream Release Candidate retagged
+
+* Mon May 15 2017 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 5.9.0-0.beta.3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_27_Mass_Rebuild
 
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+* Tue May 09 2017 Helio Chissini de Castro <helio@kde.org> - 5.9.0-0.beta.3
+- Upstream beta 3
+
+* Mon Apr 03 2017 Rex Dieter <rdieter@fedoraproject.org> - 5.8.0-2
+- build docs on all archs
+
+* Mon Jan 30 2017 Helio Chissini de Castro <helio@kde.org> - 5.8.0-1
+- New upstream version
 
 * Mon Jan 02 2017 Rex Dieter <rdieter@math.unl.edu> - 5.7.1-4
 - filter plugins too
