@@ -2,8 +2,8 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.9.1
-Release: 3%{?dist}
+Version: 5.9.2
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -112,6 +112,9 @@ popd
 
 
 %changelog
+* Mon Oct 09 2017 Jan Grulich <jgrulich@redhat.com> - 5.9.2-1
+- 5.9.2
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 5.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
