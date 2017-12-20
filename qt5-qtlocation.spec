@@ -2,13 +2,13 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.9.3
-Release: 2%{?dist}
+Version: 5.10.0
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: https://download.qt.io/official_releases/qt/5.9/%{version}/submodules/%{qt_module}-opensource-src-%{version}.tar.xz
+Source0: https://download.qt.io/official_releases/qt/5.10/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -48,7 +48,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%setup -q -n %{qt_module}-opensource-src-%{version}
+%setup -q -n %{qt_module}-everywhere-src-%{version}
 ## G_VALUE_INIT is new in glib-2.30+ only
 %patch50 -p1 -b .G_VALUE_INIT
 
@@ -110,6 +110,9 @@ popd
 
 
 %changelog
+* Tue Dec 19 2017 Jan Grulich <jgrulich@redhat.com> - 5.10.0-1
+- 5.10.0
+
 * Thu Nov 30 2017 Pete Walter <pwalter@fedoraproject.org> - 5.9.3-2
 - Rebuild for ICU 60.1
 
