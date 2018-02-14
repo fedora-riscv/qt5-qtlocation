@@ -2,8 +2,8 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.10.0
-Release: 2%{?dist}
+Version: 5.10.1
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -79,7 +79,7 @@ popd
 %postun -p /sbin/ldconfig
 
 %files
-%license LGPL_EXCEPTION.txt LICENSE.GPL* LICENSE.LGPL*
+%license LICENSE.GPL* LICENSE.LGPL*
 %{_qt5_libdir}/libQt5Location.so.5*
 %{_qt5_archdatadir}/qml/QtLocation/
 %{_qt5_plugindir}/geoservices/
@@ -110,6 +110,9 @@ popd
 
 
 %changelog
+* Wed Feb 14 2018 Jan Grulich <jgrulich@redhat.com> - 5.10.1-1
+- 5.10.1
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
