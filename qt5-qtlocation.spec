@@ -3,7 +3,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.10.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -57,7 +57,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 # no shadow builds until fixed: https://bugreports.qt.io/browse/QTBUG-37417
 %{qmake_qt5}
 
-make %{?_smp_mflags}
+%make_build
 
 %install
 make install INSTALL_ROOT=%{buildroot}
@@ -75,8 +75,7 @@ done
 popd
 
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%ldconfig_scriptlets
 
 %files
 %license LICENSE.GPL* LICENSE.LGPL*
@@ -110,6 +109,10 @@ popd
 
 
 %changelog
+* Wed Mar 07 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.10.1-2
+- rebuild (gcc)
+- use %%make_build %%ldconfig_scriptlets
+
 * Wed Feb 14 2018 Jan Grulich <jgrulich@redhat.com> - 5.10.1-1
 - 5.10.1
 
