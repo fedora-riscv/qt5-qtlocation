@@ -3,7 +3,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.10.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -109,6 +109,10 @@ popd
 
 
 %changelog
+* Wed Mar 07 2018 Adam Williamson <awilliam@redhat.com> - 5.10.1-3
+- Rebuild to fix GCC 8 mis-compilation
+  See https://da.gd/YJVwk ("GCC 8 ABI change on x86_64")
+
 * Wed Mar 07 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.10.1-2
 - rebuild (gcc)
 - use %%make_build %%ldconfig_scriptlets
