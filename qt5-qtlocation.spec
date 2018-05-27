@@ -106,7 +106,7 @@ popd
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
 %{_qt5_libdir}/pkgconfig/Qt5PositioningQuick.pc
 %dir %{_qt5_libdir}/cmake/Qt5PositioningQuick/
-%{_qt5_libdir}/cmake/Qt5Positioning/Qt5PositioningQuick*.cmake
+%{_qt5_libdir}/cmake/Qt5PositioningQuick/Qt5PositioningQuick*.cmake
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
 
 %files examples
