@@ -81,6 +81,10 @@ popd
 %dir %{_qt5_archdatadir}/qml/QtPositioning
 %{_qt5_archdatadir}/qml/QtPositioning/*
 %{_qt5_plugindir}/position/
+%{_qt5_libdir}/libQt5PositioningQuick.so.5*
+%dir %{_qt5_archdatadir}/qml/Qt
+%dir %{_qt5_archdatadir}/qml/Qt/labs
+%{_qt5_archdatadir}/qml/Qt/labs/location
 
 %files devel
 %{_qt5_headerdir}/QtLocation/
@@ -89,6 +93,9 @@ popd
 %{_qt5_headerdir}/QtPositioning/
 %{_qt5_libdir}/libQt5Positioning.so
 %{_qt5_libdir}/libQt5Positioning.prl
+%{_qt5_headerdir}/QtPositioningQuick/
+%{_qt5_libdir}/libQt5PositioningQuick.so
+%{_qt5_libdir}/libQt5PositioningQuick.prl
 %{_qt5_libdir}/pkgconfig/Qt5Location.pc
 %dir %{_qt5_libdir}/cmake/Qt5Location
 %{_qt5_libdir}/cmake/Qt5Location/Qt5Location*.cmake
@@ -96,6 +103,10 @@ popd
 %{_qt5_libdir}/pkgconfig/Qt5Positioning.pc
 %dir %{_qt5_libdir}/cmake/Qt5Positioning
 %{_qt5_libdir}/cmake/Qt5Positioning/Qt5Positioning*.cmake
+%{_qt5_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
+%{_qt5_libdir}/pkgconfig/Qt5PositioningQuick.pc
+%dir %{_qt5_libdir}/cmake/Qt5PositioningQuick/
+%{_qt5_libdir}/cmake/Qt5Positioning/Qt5PositioningQuick*.cmake
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
 
 %files examples
