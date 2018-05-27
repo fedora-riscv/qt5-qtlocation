@@ -2,20 +2,17 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.10.1
-Release: 4%{?dist}
+Version: 5.11.0
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
-Source0: https://download.qt.io/official_releases/qt/5.10/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
+%global majmin %(echo %{version} | cut -d. -f1-2)
+Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
-
-## upstreamable patches
-# try to support older glib2 (like el6)
-Patch50: qtlocation-opensource-src-5.6.0-G_VALUE_INIT.patch
 
 BuildRequires: qt5-qtbase-devel >= 5.9.0
 # QtPositioning core-private
@@ -49,8 +46,6 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %setup -q -n %{qt_module}-everywhere-src-%{version}
-## G_VALUE_INIT is new in glib-2.30+ only
-%patch50 -p1 -b .G_VALUE_INIT
 
 
 %build
@@ -103,12 +98,15 @@ popd
 %{_qt5_libdir}/cmake/Qt5Positioning/Qt5Positioning*.cmake
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_positioning*.pri
 
-
 %files examples
 %{_qt5_examplesdir}/
 
 
 %changelog
+* Sun May 27 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.11.0-1
+- 5.11.0
+- drop old G_INIT_VALUE patch (el6 too old anyway)
+
 * Mon Apr 30 2018 Pete Walter <pwalter@fedoraproject.org> - 5.10.1-4
 - Rebuild for ICU 61.1
 
