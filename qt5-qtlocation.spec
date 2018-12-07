@@ -2,7 +2,7 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.11.2
+Version: 5.11.3
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -114,6 +114,9 @@ popd
 
 
 %changelog
+* Fri Dec 07 2018 Rex Dieter <rdieter@fedoraproject.org> - 5.11.3-1
+- 5.11.3
+
 * Fri Sep 21 2018 Jan Grulich <jgrulich@redhat.com> - 5.11.2-1
 - 5.11.2
 
