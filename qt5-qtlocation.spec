@@ -3,13 +3,20 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.12.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-src-%{version}.tar.xz
+
+# build failure with gcc10
+# various C++ runtime headers indirectly included <string> which in turn
+# included <local> and <cerrno>.  Those indirect inclusions have been
+# eliminated which in turn forces packages to include the C++ headers they
+# actually need.
+Patch0: qtlocation-gcc10.patch
 
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
@@ -46,7 +53,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %setup -q -n %{qt_module}-everywhere-src-%{version}
-
+%patch0 -p1 -b .gcc10
 
 %build
 # no shadow builds until fixed: https://bugreports.qt.io/browse/QTBUG-37417
@@ -114,6 +121,9 @@ popd
 
 
 %changelog
+* Wed Sep 25 2019 Than Ngo <than@redhat.com> - 5.12.5-2
+- fixed build failures with gcc10
+
 * Tue Sep 24 2019 Jan Grulich <jgrulich@redhat.com> - 5.12.5-1
 - 5.12.5
 
