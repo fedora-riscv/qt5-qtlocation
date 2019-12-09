@@ -2,8 +2,8 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.12.5
-Release: 3%{?dist}
+Version: 5.13.2
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -121,6 +121,9 @@ popd
 
 
 %changelog
+* Mon Dec 09 2019 Jan Grulich <jgrulich@redhat.com> - 5.13.2-1
+- 5.13.2
+
 * Fri Nov 01 2019 Pete Walter <pwalter@fedoraproject.org> - 5.12.5-3
 - Rebuild for ICU 65
 
