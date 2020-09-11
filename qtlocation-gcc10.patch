@@ -1,17 +1,7 @@
-diff -Nrup a/src/3rdparty/mapbox-gl-native/platform/default/bidi.cpp b/src/3rdparty/mapbox-gl-native/platform/default/bidi.cpp
---- a/src/3rdparty/mapbox-gl-native/platform/default/bidi.cpp	2018-08-10 05:35:38.000000000 -0600
-+++ b/src/3rdparty/mapbox-gl-native/platform/default/bidi.cpp	2019-09-23 12:51:14.960857485 -0600
-@@ -5,6 +5,7 @@
- #include <unicode/ushape.h>
- 
- #include <memory>
-+#include <stdexcept>
- 
- namespace mbgl {
- 
-diff -Nrup a/src/3rdparty/mapbox-gl-native/platform/qt/src/bidi.cpp b/src/3rdparty/mapbox-gl-native/platform/qt/src/bidi.cpp
---- a/src/3rdparty/mapbox-gl-native/platform/qt/src/bidi.cpp	2018-08-10 05:35:38.000000000 -0600
-+++ b/src/3rdparty/mapbox-gl-native/platform/qt/src/bidi.cpp	2019-09-23 12:46:08.054689805 -0600
+diff --git a/src/3rdparty/mapbox-gl-native/platform/qt/src/bidi.cpp b/src/3rdparty/mapbox-gl-native/platform/qt/src/bidi.cpp
+index b75d038..b367ee6 100644
+--- a/src/3rdparty/mapbox-gl-native/platform/qt/src/bidi.cpp
++++ b/src/3rdparty/mapbox-gl-native/platform/qt/src/bidi.cpp
 @@ -3,6 +3,7 @@
  #include <mbgl/text/bidi.hpp>
  
@@ -20,12 +10,13 @@ diff -Nrup a/src/3rdparty/mapbox-gl-native/platform/qt/src/bidi.cpp b/src/3rdpar
  
  namespace mbgl {
  
-diff -Nrup a/src/3rdparty/mapbox-gl-native/src/mbgl/util/convert.cpp b/src/3rdparty/mapbox-gl-native/src/mbgl/util/convert.cpp
---- a/src/3rdparty/mapbox-gl-native/src/mbgl/util/convert.cpp	2018-08-10 05:35:38.000000000 -0600
-+++ b/src/3rdparty/mapbox-gl-native/src/mbgl/util/convert.cpp	2019-09-23 15:55:06.750723673 -0600
+diff --git a/src/3rdparty/mapbox-gl-native/src/mbgl/util/convert.cpp b/src/3rdparty/mapbox-gl-native/src/mbgl/util/convert.cpp
+index 510ff23..d5e0a92 100644
+--- a/src/3rdparty/mapbox-gl-native/src/mbgl/util/convert.cpp
++++ b/src/3rdparty/mapbox-gl-native/src/mbgl/util/convert.cpp
 @@ -1,4 +1,5 @@
  #include <mbgl/util/convert.hpp>
 +#include <cstdint>
  
- namespace mbgl {
- namespace util {
+ #include <cstdint>
+ 
