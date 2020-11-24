@@ -3,7 +3,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.15.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -127,6 +127,9 @@ popd
 
 
 %changelog
+* Tue Nov 24 07:54:14 CET 2020 Jan Grulich <jgrulich@redhat.com> - 5.15.2-2
+- Rebuild for qtbase with -no-reduce-relocations option
+
 * Fri Nov 20 09:30:46 CET 2020 Jan Grulich <jgrulich@redhat.com> - 5.15.2-1
 - 5.15.2
 
