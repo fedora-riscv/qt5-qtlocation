@@ -21,6 +21,7 @@ Patch0: qtlocation-gcc10.patch
 # filter plugin/qml provides
 %global __provides_exclude_from ^(%{_qt5_archdatadir}/qml/.*\\.so|%{_qt5_plugindir}/.*\\.so)$
 
+BuildRequires: make
 BuildRequires: qt5-qtbase-devel >= 5.9.0
 # QtPositioning core-private
 BuildRequires: qt5-qtbase-private-devel
