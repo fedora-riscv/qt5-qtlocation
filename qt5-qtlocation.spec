@@ -3,7 +3,7 @@
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
 Version: 5.15.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -128,6 +128,9 @@ popd
 
 
 %changelog
+* Thu May 20 2021 Pete Walter <pwalter@fedoraproject.org> - 5.15.2-6
+- Rebuild for ICU 69
+
 * Tue Mar 30 2021 Jonathan Wakely <jwakely@redhat.com> - 5.15.2-5
 - Rebuilt for removed libstdc++ symbol (#1937698)
 
