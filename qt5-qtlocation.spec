@@ -96,9 +96,6 @@ popd
 %{_qt5_archdatadir}/qml/QtPositioning/*
 %{_qt5_plugindir}/position/
 %{_qt5_libdir}/libQt5PositioningQuick.so.5*
-%dir %{_qt5_archdatadir}/qml/Qt
-%dir %{_qt5_archdatadir}/qml/Qt/labs
-%{_qt5_archdatadir}/qml/Qt/labs/location
 
 %files devel
 %{_qt5_headerdir}/QtLocation/
