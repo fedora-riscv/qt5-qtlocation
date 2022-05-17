@@ -2,7 +2,7 @@
 
 Summary: Qt5 - Location component
 Name:    qt5-%{qt_module}
-Version: 5.15.3
+Version: 5.15.4
 Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
@@ -125,6 +125,9 @@ popd
 
 
 %changelog
+* Mon May 16 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.4-1
+- 5.15.4
+
 * Fri Mar 04 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.3-1
 - 5.15.3
 
